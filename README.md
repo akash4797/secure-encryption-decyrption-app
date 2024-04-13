@@ -49,7 +49,7 @@ Every major piece of information in the database should be encrypted. Le. if an 
   ```sql
   mysql://username:password@localhost/secureauth
   ```
-- Create a .env.local file with the following contents:
+- Create a .env.local file with the following contents or follow .env.example file:
 
   ```sh
   DATABASE_URL=mysql://username:password@localhost/secureauth
