@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useToast } from "@/components/ui/use-toast";
 
 // This is a React functional component for the Register page.
 // It uses useFormik hook from formik library to handle form validation and submission.
@@ -19,6 +20,9 @@ export default function Register() {
   // We get the router object from the next/navigation library.
   // This object allows us to navigate programmatically within our application.
   const router = useRouter();
+
+  // We get the toast function from the useToast hook from the ui library.
+  const { toast } = useToast();
 
   // We initialize formik with initial values for the form inputs and a validation schema.
   // The schema ensures that the username is required and the password is at least 8 characters long and contains Latin letters.
@@ -60,14 +64,22 @@ export default function Register() {
         );
 
         if (response.status === 200) {
-          console.log("Registration successful!");
+          router.push("/login?register=1");
         } else {
           console.error("Registration failed:", response.data.message);
+          toast({
+            title: "Registration Failed",
+            description: response.data.message,
+            variant: "destructive",
+          }); // toast error
         }
       } catch (error) {
         console.error("Error registering user:", error);
-      } finally {
-        router.push("/login?register=1");
+        toast({
+          title: "Registration Failed",
+          description: "An error occurred while registering the user.",
+          variant: "destructive",
+        }); // toast error
       }
     },
   });
@@ -83,7 +95,7 @@ export default function Register() {
         Register to the Application
       </h1>
       <div className="flex flex-col w-full">
-        <span>
+        <span className="text-sm">
           {registerFormik.touched.username && registerFormik.errors.username}
         </span>
         <Input
@@ -96,7 +108,7 @@ export default function Register() {
         />
       </div>
       <div className="flex flex-col w-full">
-        <span>
+        <span className="text-sm">
           {registerFormik.touched.password && registerFormik.errors.password}
         </span>
         <Input
@@ -109,7 +121,7 @@ export default function Register() {
         />
       </div>
       <div className="flex flex-col w-full">
-        <span>
+        <span className="text-sm">
           {registerFormik.touched.password &&
             registerFormik.errors.confirmpassword}
         </span>

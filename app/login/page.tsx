@@ -13,6 +13,7 @@ import * as yup from "yup";
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 
 /*
  * The Login component is a functional component that serves as the login page
@@ -50,6 +51,8 @@ export default function Login() {
   const isRegister = params.get("register"); // Gets the value of the "register" parameter
   const router = useRouter(); // Gets the router object
 
+  const { toast } = useToast();
+
   // Handle the form submission and validation
   // This hook is from the "formik" module
   const loginFormik = useFormik({
@@ -83,12 +86,18 @@ export default function Login() {
         if (response.status === 200) {
           router.push("/"); // Navigate to the home page
         } else {
-          // Log an error message if the login fails
-          console.error("Login failed:", response.data.message);
+          toast({
+            title: "Authentication Failed",
+            description: response.data.message,
+            variant: "destructive",
+          }); // toast error
         }
       } catch (error) {
-        // Log an error message if there is an error during the login process
-        console.error("Error logging in:", error);
+        toast({
+          title: "Error",
+          description: "Something went wrong. Please try again.",
+          variant: "destructive",
+        }); // toast error
       }
     },
   });
