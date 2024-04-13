@@ -11,16 +11,40 @@ import { FcDataEncryption } from "react-icons/fc";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 
+/* 
+  This component is used to display and update user information.
+
+  Props:
+  - userInfo: an object containing user information such as username, email, phone and location.
+
+  State: None
+
+  This component renders a form with input fields for email, phone and location.
+  It also renders a notice about data encryption and a logout button.
+
+  Event handlers:
+  - handleLogout: removes the access token from cookies and navigates to the login page.
+
+  Functionality:
+  - The form is submitted using Formik and the submitted data is sent to the server using axios for updating user information.
+  - If the server response status is 200, a success toast is shown. Otherwise, an error toast is shown.
+
+*/
 export default function UserInfo({ userInfo }: { userInfo: any }) {
+  // Initialize toast and router
   const { toast } = useToast();
   const cookies = new Cookies();
   const router = useRouter();
 
+  // Handle logout
   const handleLogout = () => {
+    // Remove access token from cookies
     cookies.remove("access-token");
+    // Navigate to login page
     router.push("/login");
   };
 
+  // Initialize formik with initial values and a schema for validation
   const userFormik = useFormik({
     initialValues: {
       username: userInfo.username,
@@ -35,6 +59,7 @@ export default function UserInfo({ userInfo }: { userInfo: any }) {
     }),
     onSubmit: async (values) => {
       try {
+        // Send POST request to /api/updateuser with user data and access token
         const response = await axios("/api/updateuser", {
           method: "POST",
           data: {
@@ -48,6 +73,7 @@ export default function UserInfo({ userInfo }: { userInfo: any }) {
           },
         });
 
+        // Show success toast if response status is 200, else show error toast
         if (response.status === 200) {
           toast({
             title: "Success",
@@ -61,22 +87,26 @@ export default function UserInfo({ userInfo }: { userInfo: any }) {
           });
         }
       } catch (e) {
+        // Log any errors to the console
         console.log(e);
       }
     },
   });
 
+  // Render the form with input fields, notice, save button and logout button
   return (
     <div className="h-screen flex flex-col justify-center items-center container mx-auto w-96 gap-3">
       <form
         className="w-full flex flex-col gap-3"
         onSubmit={userFormik.handleSubmit}
       >
+        {/* Display user's username */}
         <div className="text-2xl border-b border-black pb-2 flex gap-2">
           Hello
           <span className="italic">@{userInfo.username}</span>
         </div>
 
+        {/* Display notice about data encryption */}
         <div className="absolute top-5 right-5">
           <Alert className="">
             <FcDataEncryption className="h-5 w-5" />
@@ -87,6 +117,7 @@ export default function UserInfo({ userInfo }: { userInfo: any }) {
           </Alert>
         </div>
 
+        {/* Input field for email */}
         <div className="flex flex-col w-full">
           <label htmlFor="email" className="mb-2 block text-sm font-medium">
             Email
@@ -101,6 +132,7 @@ export default function UserInfo({ userInfo }: { userInfo: any }) {
           />
         </div>
 
+        {/* Input field for phone */}
         <div className="flex flex-col w-full">
           <label htmlFor="phone" className="mb-2 block text-sm font-medium">
             Phone
@@ -115,6 +147,7 @@ export default function UserInfo({ userInfo }: { userInfo: any }) {
           />
         </div>
 
+        {/* Input field for location */}
         <div className="flex flex-col w-full">
           <label htmlFor="location" className="mb-2 block text-sm font-medium">
             Location
@@ -132,6 +165,7 @@ export default function UserInfo({ userInfo }: { userInfo: any }) {
           Save
         </Button>
       </form>
+      {/* Button to logout */}
       <Button onClick={handleLogout} className="w-full" variant={"destructive"}>
         Logout
       </Button>

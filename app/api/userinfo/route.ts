@@ -48,9 +48,9 @@ export async function GET(req: NextRequest) {
 
     // If a user is found, return a JSON response with the user information.
     if (user) {
-      const userEmail = await decryptData(user.email);
-      const userPhone = await decryptData(user.phone);
-      const userLocation = await decryptData(user.location);
+      const userEmail = await decryptData(user.email); // Decrypt the user email
+      const userPhone = await decryptData(user.phone); // Decrypt the user phone
+      const userLocation = await decryptData(user.location); // Decrypt the user location
       const userData = {
         username: user.username,
         email: userEmail,
