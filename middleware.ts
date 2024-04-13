@@ -60,6 +60,7 @@ export default async function middleware(req: NextRequest) {
   }
 }
 
+// Config for the middleware
 export const config = {
-  matcher: "/(login|register|)",
+  matcher: "/(login|register|)", // match all paths
 };
