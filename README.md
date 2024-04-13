@@ -28,7 +28,7 @@ Feature 5:
 A key management module should be defined. -> generateJWT function is defined in utils/auth.ts
 
 Feature 6:
-Users can post/view using encryption and decryption.
+Users can post/view using encryption and decryption. -> EncryptionAndDecryption function is defined in utils/EncryptionAndDepcryption.ts
 
 Feature 7:
 Every major piece of information in the database should be encrypted. Le. if an attacker has access to the database, unable to retrieve any data. -> Check Database Encryption.
@@ -39,7 +39,7 @@ Every major piece of information in the database should be encrypted. Le. if an 
    ```sh
    yarn install
    ```
-2. Set up MySQL database using XAMPP and phpMyAdmin, then create a .env.local file.:
+2. Set up MySQL database using XAMPP and phpMyAdmin.:
 
 - Create a database using the following command in the MySQL console:
   ```sql
@@ -49,28 +49,56 @@ Every major piece of information in the database should be encrypted. Le. if an 
   ```sql
   mysql://username:password@localhost/secureauth
   ```
-- Create a .env.local file with the following contents or follow .env.example file:
+
+3. Private and Public Keys.:
+
+- Run the following command in the terminal to generate the private and public keys [the keys are on RSA-OAEP-256 encryption] then the key will be saved in your current directory [Optional if you want to use mine which is given in the .env.example file]:
+  ```sh
+  openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -pkeyopt rsa_keygen_pubexp:65537 -out private_key.pem
+  openssl rsa -in private_key.pem -pubout -out public_key.pem
+  ```
+
+4. Setup .env.local file:
+
+- Create a .env.local file in the root directory of the project.
+
+- Write the following contents or follow .env.example file:
 
   ```sh
   DATABASE_URL=mysql://username:password@localhost/secureauth
   JWT_SECRET="secret"
   ```
 
-- Run the following command in the terminal to generate the Prisma client:
+- Copy the Public and the Private key that you generated and paste it to the .env.local file. Or if you want my key use mine.
+
+5. Install dotenv-cli in global:
+
+- Run the following command in the terminal to install dotenv-cli in global:
   ```sh
-  npx prisma generate
-  ```
-- Run the following command in the terminal to push the database schema to the database:
-  ```sh
-  npx prisma db push
+  npm install -g dotenv-cli
   ```
 
-3.  Run the following command in the terminal to start the server:
+6. Generate Prisma Client:
+
+- Run the following command in the terminal to generate the Prisma client:
+  ```sh
+  dotenv -e .env.local -- npx prisma generate
+  ```
+- Run the following command in the terminal to push the database schema to the database:
+
+  ```sh
+  dotenv -e .env.local -- npx prisma db push
+  ```
+
+- [Optional] Run the following command in the terminal to start the database or you can see the database on phpmyadmin:
+  ```sh
+  dotenv -e .env.local -- npx prisma studio
+  ```
+
+7.  Run the following command in the terminal to start the server [Default port is 3000]:
+
     ```sh
     yarn dev
     ```
 
-npm install -g dotenv-cli
-dotenv -e .env.local -- npx prisma generate
-dotenv -e .env.local -- npx prisma db push
-dotenv -e .env.local -- npx prisma studio
+8.  Now you can login and register to the system.
