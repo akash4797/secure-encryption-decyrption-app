@@ -32,3 +32,33 @@ Users can post/view using encryption and decryption.
 
 Feature 7:
 Every major piece of information in the database should be encrypted. Le. if an attacker has access to the database, unable to retrieve any data. -> Check Database Encryption.
+
+### Application Installation Steps
+
+1. Install dependencies using Yarn:
+   ```sh
+   yarn install
+   ```
+2. Set up MySQL database using XAMPP and phpMyAdmin:
+
+- Create a database using the following command in the MySQL console:
+  ```sql
+  CREATE DATABASE secureauth;
+  ```
+- Get the username and password from phpMyAdmin and create an URL to connect to the database. For example:
+  ```sql
+  mysql://username:password@localhost/secureauth
+  ```
+- Run the following command in the terminal to generate the Prisma client:
+  ```sh
+  npx prisma generate
+  ```
+- Run the following command in the terminal to push the database schema to the database:
+  ```sh
+  npx prisma db push
+  ```
+
+3.  Run the following command in the terminal to start the server:
+    ```sh
+    yarn dev
+    ```
