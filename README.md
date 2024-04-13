@@ -25,7 +25,7 @@ Feature 4:
 Separate function for credential check. -> comparePasswords function is defined in utils/auth.ts
 
 Feature 5:
-A key management module should be defined. -> generateJWT function is defined in utils/auth.ts
+A key management module should be defined. -> generateJWT function is defined in utils/auth.ts also Private and Public keys are defined in .env.local file.
 
 Feature 6:
 Users can post/view using encryption and decryption. -> EncryptionAndDecryption function is defined in utils/EncryptionAndDepcryption.ts
