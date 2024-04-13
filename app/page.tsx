@@ -1,5 +1,6 @@
 import axios from "axios";
 import { cookies } from "next/headers";
+import UserInfo from "./UserInfo";
 
 export const getUser = async (token: string) => {
   try {
@@ -10,7 +11,6 @@ export const getUser = async (token: string) => {
     });
     return response;
   } catch (error) {
-    // console.log(error);
     return null;
   }
 };
@@ -24,6 +24,7 @@ export default async function Home() {
     <div className="">
       <h1>Hello {user.username}</h1>
       <div className="">Welcome home</div>
+      <UserInfo userinfo={user} />
     </div>
   );
 }
