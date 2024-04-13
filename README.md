@@ -1,4 +1,4 @@
--- This is a web application that allows users to login and register to the system. Users can post/view using encryption and decryption.
+# This is a web application that allows users to login and register to the system. Users can post/view using encryption and decryption.
 
 **Developing an web applicaation with the following features:**
 
