@@ -16,7 +16,7 @@ Feature 1:
 Login and Register. -> routes are defined in app/(login|register)/page.tsx
 
 Feature 2:
-Userinfo should be encrypted (while storing) and decrypted (while viewing).
+Userinfo should be encrypted (while storing) and decrypted (while viewing). -> used jose to encrypt and decrypt
 
 Feature 3:
 Password should be hashed and salted before storing in the database. -> hashPassword function is defined in utils/auth.ts
