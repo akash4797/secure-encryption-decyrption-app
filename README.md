@@ -49,6 +49,13 @@ Every major piece of information in the database should be encrypted. Le. if an 
   ```sql
   mysql://username:password@localhost/secureauth
   ```
+- Create a .env.local file with the following contents:
+
+  ```sh
+  DATABASE_URL=mysql://username:password@localhost/secureauth
+  JWT_SECRET="secret"
+  ```
+
 - Run the following command in the terminal to generate the Prisma client:
   ```sh
   npx prisma generate
