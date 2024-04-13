@@ -2,44 +2,58 @@
 import { verifyJWT } from "./utils/auth";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * Middleware function for handling authentication and redirects.
+ *
+ * @param {NextRequest} req - The Next.js request object.
+ * @returns {Promise<NextResponse|null>} A promise that resolves to a Next.js response object or null.
+ */
 export default async function middleware(req: NextRequest) {
   try {
+    // Extract the "access-token" cookie from the request.
     const token = req.cookies.get("access-token")?.value;
-    // Check JWT token using verifyJWT function
+
+    // If the token is missing, throw an error to trigger the catch block.
     if (!token) throw new Error();
+
+    // Verify the JWT token using the verifyJWT function.
     const decodedToken = await verifyJWT(token);
 
-    // If the path is "/login" or "/register"
+    // If the request URL is for "/login" or "/register", check if the token is valid.
     if (
       req.nextUrl.pathname === "/login" ||
       req.nextUrl.pathname === "/register"
     ) {
-      // If token is valid, redirect to "/" page
+      // If the token is valid, redirect to the root URL.
       if (decodedToken) {
         return NextResponse.redirect(new URL(`${req.nextUrl.origin}`), {
           status: 302,
         });
       }
-      // If token is invalid, no redirection needed
+
+      // If the token is invalid, return null to allow the request to continue.
       return null;
     }
 
-    // For other paths including "/", check token validity
+    // If the token is invalid, redirect to the login page.
     if (!decodedToken) {
       return NextResponse.redirect(new URL(`${req.nextUrl.origin}/login`), {
         status: 302,
       });
     }
 
-    // If token is valid for other paths, no redirection needed
+    // If the request is not for "/login" or "/register", return null to allow the request to continue.
     return null;
   } catch (error) {
+    // If the request URL is for "/login" or "/register", return null to allow the request to continue.
     if (
       req.nextUrl.pathname === "/login" ||
       req.nextUrl.pathname === "/register"
     ) {
       return null;
     }
+
+    // If an error occurred, redirect to the login page.
     return NextResponse.redirect(new URL(`${req.nextUrl.origin}/login`), {
       status: 302,
     });
@@ -47,6 +61,5 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // Define the matcher for the middleware
   matcher: "/(login|register|)",
 };

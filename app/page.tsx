@@ -24,7 +24,7 @@ export default async function Home() {
     <div className="">
       <h1>Hello {user.username}</h1>
       <div className="">Welcome home</div>
-      <UserInfo userinfo={user} />
+      <UserInfo userInfo={user} />
     </div>
   );
 }
