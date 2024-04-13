@@ -39,7 +39,7 @@ Every major piece of information in the database should be encrypted. Le. if an 
    ```sh
    yarn install
    ```
-2. Set up MySQL database using XAMPP and phpMyAdmin:
+2. Set up MySQL database using XAMPP and phpMyAdmin, then create a .env.local file.:
 
 - Create a database using the following command in the MySQL console:
   ```sql
