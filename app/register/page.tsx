@@ -6,6 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Register() {
   const router = useRouter();
@@ -108,6 +109,11 @@ export default function Register() {
       >
         Register
       </Button>
+      <Link href={"/login"} className="w-full">
+        <Button className="w-full" variant={"outline"}>
+          Login
+        </Button>
+      </Link>
     </form>
   );
 }

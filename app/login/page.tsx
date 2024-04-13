@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AiFillCheckCircle } from "react-icons/ai";
 import axios from "axios";
+import Link from "next/link";
 
 export default function Login() {
   const params = useSearchParams();
@@ -80,6 +81,11 @@ export default function Login() {
       >
         Login
       </Button>
+      <Link href={"/register"} className="w-full">
+        <Button className="w-full" variant={"outline"}>
+          Register
+        </Button>
+      </Link>
     </div>
   );
 }
