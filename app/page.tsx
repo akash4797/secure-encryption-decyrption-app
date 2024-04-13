@@ -22,8 +22,6 @@ export default async function Home() {
   const user = userResponse?.data.user;
   return (
     <div className="">
-      <h1>Hello {user.username}</h1>
-      <div className="">Welcome home</div>
       <UserInfo userInfo={user} />
     </div>
   );

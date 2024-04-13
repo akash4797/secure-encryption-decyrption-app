@@ -30,11 +30,17 @@ export default function Register() {
   const registerFormik = useFormik({
     initialValues: {
       username: "",
+      email: "", // Initial value of the email field
+      phone: "", // Initial value of the phone field
+      location: "", // Initial value of the location field
       password: "",
       confirmpassword: "",
     },
     validationSchema: yup.object().shape({
       username: yup.string().required("No username provided."), // Ensure the username is required
+      email: yup.string().required("No email provided.").email("Invalid email"), // Ensure the email is valid
+      phone: yup.string().required("No phone number provided."), // Ensure the phone number is required
+      location: yup.string().required("No location provided."), // Ensure the location is required
       password: yup
         .string()
         .required("No password provided.") // Ensure the password is required
@@ -51,12 +57,15 @@ export default function Register() {
     // Finally, we redirect the user to the Login page.
     onSubmit: async (values) => {
       try {
-        const { username, password } = values;
+        const { username, password, email, phone, location } = values;
         const response = await axios.post(
           "/api/register",
           {
             username,
             password,
+            email,
+            phone,
+            location,
           },
           {
             headers: { "Content-Type": "application/json" },
@@ -104,6 +113,45 @@ export default function Register() {
           id="username"
           placeholder="Username"
           value={registerFormik.values.username}
+          onChange={registerFormik.handleChange}
+        />
+      </div>
+      <div className="flex flex-col w-full">
+        <span className="text-sm">
+          {registerFormik.touched.email && registerFormik.errors.email}
+        </span>
+        <Input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          value={registerFormik.values.email} // Set the initial value of the email field
+          onChange={registerFormik.handleChange} // Update the value of the email field when the input changes
+        />
+      </div>
+      <div className="flex flex-col w-full">
+        <span className="text-sm">
+          {registerFormik.touched.phone && registerFormik.errors.phone}
+        </span>
+        <Input
+          type="tel"
+          name="phone"
+          id="phone"
+          placeholder="Phone"
+          value={registerFormik.values.phone}
+          onChange={registerFormik.handleChange}
+        />
+      </div>
+      <div className="flex flex-col w-full">
+        <span className="text-sm">
+          {registerFormik.touched.location && registerFormik.errors.location}
+        </span>
+        <Input
+          type="text"
+          name="location"
+          id="location"
+          placeholder="Location"
+          value={registerFormik.values.location}
           onChange={registerFormik.handleChange}
         />
       </div>

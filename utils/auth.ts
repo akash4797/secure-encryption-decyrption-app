@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import * as jose from "jose";
 
 const jwtConfig = {
-  secret: new TextEncoder().encode("Superman"),
+  secret: new TextEncoder().encode(process.env.JWT_SECRET),
 };
 
 const generateSalt = async (): Promise<string> => await bcrypt.genSalt(10);
@@ -75,7 +75,7 @@ const generateJWT = (user: any) => {
       id: user.id, // Add user id to the JWT payload
       username: user.username, // Add user username to the JWT payload
     },
-    "Superman",
+    process.env.JWT_SECRET || "Superman",
     {
       expiresIn: "1h", // Set the expiry time for the token to 1 hour
     }

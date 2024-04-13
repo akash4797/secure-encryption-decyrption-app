@@ -1,6 +1,7 @@
 import { hashPassword } from "@/utils/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/prisma";
+import { encryptData } from "@/utils/EncryptionAndDepcryption";
 
 /**
  * This is the POST handler for the register API route.
@@ -30,9 +31,14 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
 
   // Destructure the "username" and "password" fields from the parsed JSON
-  const { username, password } = body;
+  const { username, password, email, phone, location } = body;
 
   try {
+    // encrypt data
+    const encryptedEmail = await encryptData(email);
+    const encryptedPhone = await encryptData(phone);
+    const encryptedLocation = await encryptData(location);
+
     // Hash the password using the "hashPassword" function from "@/utils/auth"
     const hashedPassword = await hashPassword(password);
 
@@ -41,6 +47,9 @@ export async function POST(req: NextRequest) {
       data: {
         username,
         password: hashedPassword,
+        email: encryptedEmail,
+        phone: encryptedPhone,
+        location: encryptedLocation,
       },
     });
 

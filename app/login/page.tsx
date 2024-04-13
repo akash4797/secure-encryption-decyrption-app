@@ -58,6 +58,9 @@ export default function Login() {
   const loginFormik = useFormik({
     initialValues: {
       username: "", // Initial value of the username field
+      email: "", // Initial value of the email field
+      phone: "", // Initial value of the phone field
+      location: "", // Initial value of the location field
       password: "", // Initial value of the password field
     },
     validationSchema: yup.object().shape({

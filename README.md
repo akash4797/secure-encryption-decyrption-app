@@ -69,3 +69,8 @@ Every major piece of information in the database should be encrypted. Le. if an 
     ```sh
     yarn dev
     ```
+
+npm install -g dotenv-cli
+dotenv -e .env.local -- npx prisma generate
+dotenv -e .env.local -- npx prisma db push
+dotenv -e .env.local -- npx prisma studio

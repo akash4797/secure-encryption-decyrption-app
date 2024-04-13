@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/prisma";
 import { verifyJWT } from "@/utils/auth";
+import { decryptData } from "@/utils/EncryptionAndDepcryption";
 
 /*
  * This is a GET API route handler. It is designed to handle incoming GET requests.
@@ -39,12 +40,24 @@ export async function GET(req: NextRequest) {
       },
       select: {
         username: true,
+        email: true,
+        phone: true,
+        location: true,
       },
     });
 
     // If a user is found, return a JSON response with the user information.
     if (user) {
-      return NextResponse.json({ user: user });
+      const userEmail = await decryptData(user.email);
+      const userPhone = await decryptData(user.phone);
+      const userLocation = await decryptData(user.location);
+      const userData = {
+        username: user.username,
+        email: userEmail,
+        phone: userPhone,
+        location: userLocation,
+      };
+      return NextResponse.json({ user: userData });
     }
   } catch (error) {
     // If there is an error during the process, return a JSON response with an error message.

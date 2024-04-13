@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE `User` MODIFY `email` LONGTEXT NOT NULL,
+    MODIFY `location` LONGTEXT NOT NULL,
+    MODIFY `phone` LONGTEXT NOT NULL;
