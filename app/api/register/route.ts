@@ -47,9 +47,9 @@ export async function POST(req: NextRequest) {
       data: {
         username,
         password: hashedPassword,
-        email: encryptedEmail,
-        phone: encryptedPhone,
-        location: encryptedLocation,
+        email: encryptedEmail as string,
+        phone: encryptedPhone as string,
+        location: encryptedLocation as string,
       },
     });
 

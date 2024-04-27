@@ -10,52 +10,34 @@ import Link from "next/link";
 import { useToast } from "@/components/ui/use-toast";
 import Image from "next/image";
 
-// This is a React functional component for the Register page.
-// It uses useFormik hook from formik library to handle form validation and submission.
-// It renders a form with three inputs for username, password, and confirm password.
-// On form submit, it sends a POST request to the "/api/register" endpoint with the form data.
-// After a successful registration, it redirects the user to the Login page.
-// If there is an error during registration, it logs the error.
-
 export default function Register() {
-  // We get the router object from the next/navigation library.
-  // This object allows us to navigate programmatically within our application.
   const router = useRouter();
-
-  // We get the toast function from the useToast hook from the ui library.
   const { toast } = useToast();
 
-  // We initialize formik with initial values for the form inputs and a validation schema.
-  // The schema ensures that the username is required and the password is at least 8 characters long and contains Latin letters.
-  // The confirm password field is also required and must match the password.
   const registerFormik = useFormik({
     initialValues: {
       username: "",
-      email: "", // Initial value of the email field
-      phone: "", // Initial value of the phone field
-      location: "", // Initial value of the location field
+      email: "",
+      phone: "",
+      location: "",
       password: "",
       confirmpassword: "",
     },
     validationSchema: yup.object().shape({
-      username: yup.string().required("No username provided."), // Ensure the username is required
-      email: yup.string().required("No email provided.").email("Invalid email"), // Ensure the email is valid
-      phone: yup.string().required("No phone number provided."), // Ensure the phone number is required
-      location: yup.string().required("No location provided."), // Ensure the location is required
+      username: yup.string().required("No username provided."),
+      email: yup.string().required("No email provided.").email("Invalid email"),
+      phone: yup.string().required("No phone number provided."),
+      location: yup.string().required("No location provided."),
       password: yup
         .string()
-        .required("No password provided.") // Ensure the password is required
+        .required("No password provided.")
         .min(8, "Password is too short - should be 8 chars minimum.")
-        .matches(/[a-zA-Z]/, "Password can only contain Latin letters."), // Ensure the password is at least 8 characters long and contains Latin letters
+        .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
       confirmpassword: yup
         .string()
         .required("Please retype password again")
-        .oneOf([yup.ref("password")], "Passwords must match"), // Ensure the confirm password field is required and must match the password
+        .oneOf([yup.ref("password")], "Passwords must match"),
     }),
-    // On form submit, we send a POST request to the "/api/register" endpoint.
-    // If the response status is 200, we log a success message.
-    // Otherwise, we log an error message.
-    // Finally, we redirect the user to the Login page.
     onSubmit: async (values) => {
       try {
         const { username, password, email, phone, location } = values;
@@ -81,7 +63,7 @@ export default function Register() {
             title: "Registration Failed",
             description: response.data.message,
             variant: "destructive",
-          }); // toast error
+          });
         }
       } catch (error) {
         console.error("Error registering user:", error);
@@ -89,13 +71,11 @@ export default function Register() {
           title: "Registration Failed",
           description: "An error occurred while registering the user.",
           variant: "destructive",
-        }); // toast error
+        });
       }
     },
   });
 
-  // We render the form with three input fields for username, password, and confirm password.
-  // We also render a submit button and a link to the Login page.
   return (
     <div className="h-screen grid grid-cols-3">
       <div className="col-span-2">
@@ -108,7 +88,7 @@ export default function Register() {
         />
       </div>
       <form
-        onSubmit={registerFormik.handleSubmit} // Handle form submission
+        onSubmit={registerFormik.handleSubmit}
         className="h-screen flex flex-col justify-center items-center container mx-auto gap-3 w-96"
       >
         <h1 className="font-semibold text-xl mb-5">Sign Up</h1>
@@ -134,8 +114,8 @@ export default function Register() {
             name="email"
             id="email"
             placeholder="Email"
-            value={registerFormik.values.email} // Set the initial value of the email field
-            onChange={registerFormik.handleChange} // Update the value of the email field when the input changes
+            value={registerFormik.values.email}
+            onChange={registerFormik.handleChange}
           />
         </div>
         <div className="flex flex-col w-full">
@@ -193,7 +173,7 @@ export default function Register() {
         </div>
         <Button
           type={"submit"}
-          disabled={registerFormik.isSubmitting} // Disable the button while the form is submitting
+          disabled={registerFormik.isSubmitting}
           className="w-full"
         >
           Register

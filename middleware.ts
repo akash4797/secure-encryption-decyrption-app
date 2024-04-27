@@ -21,8 +21,8 @@ export default async function middleware(req: NextRequest) {
 
     // If the request URL is for "/login" or "/register", check if the token is valid.
     if (
-      req.nextUrl.pathname === "/login" ||
-      req.nextUrl.pathname === "/register"
+      req.nextUrl.pathname === "/signin" ||
+      req.nextUrl.pathname === "/signup"
     ) {
       // If the token is valid, redirect to the root URL.
       if (decodedToken) {
@@ -37,7 +37,7 @@ export default async function middleware(req: NextRequest) {
 
     // If the token is invalid, redirect to the login page.
     if (!decodedToken) {
-      return NextResponse.redirect(new URL(`${req.nextUrl.origin}/login`), {
+      return NextResponse.redirect(new URL(`${req.nextUrl.origin}/signin`), {
         status: 302,
       });
     }
@@ -47,14 +47,14 @@ export default async function middleware(req: NextRequest) {
   } catch (error) {
     // If the request URL is for "/login" or "/register", return null to allow the request to continue.
     if (
-      req.nextUrl.pathname === "/login" ||
-      req.nextUrl.pathname === "/register"
+      req.nextUrl.pathname === "/signin" ||
+      req.nextUrl.pathname === "/signup"
     ) {
       return null;
     }
 
     // If an error occurred, redirect to the login page.
-    return NextResponse.redirect(new URL(`${req.nextUrl.origin}/login`), {
+    return NextResponse.redirect(new URL(`${req.nextUrl.origin}/signin`), {
       status: 302,
     });
   }
@@ -62,5 +62,5 @@ export default async function middleware(req: NextRequest) {
 
 // Config for the middleware
 export const config = {
-  matcher: "/(login|register|)", // match all paths
+  matcher: "/(singin|signup|)", // match all paths
 };
