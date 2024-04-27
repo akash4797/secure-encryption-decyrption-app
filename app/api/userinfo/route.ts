@@ -26,6 +26,7 @@ export async function GET(req: NextRequest) {
         location: true,
         bio: true,
         post: true,
+        gender: true,
       },
     });
 
@@ -44,6 +45,7 @@ export async function GET(req: NextRequest) {
         location: userLocation,
         bio: userbio,
         post: userpost,
+        gender: user.gender,
       };
       return NextResponse.json({ user: userData });
     }

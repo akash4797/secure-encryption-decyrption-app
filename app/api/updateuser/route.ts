@@ -10,12 +10,13 @@ export async function POST(req: NextRequest) {
     if (!decoded)
       return NextResponse.json({ message: "Invalid token" }, { status: 401 });
     const body = await req.json();
-    const { username, email, phone, location, bio, post } = body;
+    const { username, email, phone, location, bio, post, gender } = body;
     const encryptEmail = await encryptData(email);
     const encryptPhone = await encryptData(phone);
     const encryptLocation = await encryptData(location);
-    const encryptBio = await encryptData(bio);
-    const encryptPost = await encryptData(post);
+    const encryptBio = bio ? await encryptData(bio) : "";
+    const encryptPost = post ? await encryptData(post) : "";
+
     const user = await db.user.update({
       where: { username },
       data: {
@@ -24,17 +25,19 @@ export async function POST(req: NextRequest) {
         location: encryptLocation as string,
         bio: encryptBio as string,
         post: encryptPost as string,
+        gender: gender,
       },
     });
     if (user) return NextResponse.json(user, { status: 200 });
     else
       return NextResponse.json(
-        { message: "Something went wrong" },
+        { message: "Something went wrong 1" },
         { status: 500 }
       );
-  } catch {
+  } catch (e) {
+    console.log(e);
     return NextResponse.json(
-      { message: "Something went wrong" },
+      { message: "Something went wrong 2" },
       { status: 500 }
     );
   }

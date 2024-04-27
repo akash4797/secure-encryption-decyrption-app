@@ -9,6 +9,13 @@ import * as yup from "yup";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function UserInfo({ userInfo }: { userInfo: any }) {
   const { toast } = useToast();
@@ -28,6 +35,7 @@ export default function UserInfo({ userInfo }: { userInfo: any }) {
       location: userInfo.location,
       bio: userInfo.bio,
       post: userInfo.post,
+      gender: userInfo.gender,
     },
     validationSchema: yup.object().shape({
       email: yup.string().required("No email provided.").email("Invalid email"),
@@ -45,6 +53,7 @@ export default function UserInfo({ userInfo }: { userInfo: any }) {
             location: values.location,
             bio: values.bio,
             post: values.post,
+            gender: values.gender,
           },
           headers: {
             Authorization: cookies.get("access-token"),
@@ -121,6 +130,25 @@ export default function UserInfo({ userInfo }: { userInfo: any }) {
               onChange={userFormik.handleChange}
               className="text-black"
             />
+          </div>
+
+          <div className="flex flex-col w-full text-black">
+            <label
+              htmlFor="gender"
+              className="mb-2 block text-sm font-medium"
+            />
+            <Select
+              onValueChange={(e) => userFormik.setFieldValue("gender", e)}
+              value={userFormik.values.gender}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder={userFormik.values.gender} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="MALE">Male</SelectItem>
+                <SelectItem value="FEMALE">Female</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="flex flex-col w-full">

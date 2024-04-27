@@ -203,7 +203,7 @@ export default function Register() {
         >
           Register
         </Button>
-        <Link href={"/login"} className="w-full">
+        <Link href={"/signin"} className="w-full">
           <Button className="w-full" variant={"outline"}>
             Login
           </Button>
