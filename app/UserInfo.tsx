@@ -16,16 +16,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function UserInfo({ userInfo }: { userInfo: any }) {
   const { toast } = useToast();
   const cookies = new Cookies();
   const router = useRouter();
-
-  const handleLogout = () => {
-    cookies.remove("access-token");
-    router.push("/signin");
-  };
 
   const userFormik = useFormik({
     initialValues: {
@@ -79,17 +85,15 @@ export default function UserInfo({ userInfo }: { userInfo: any }) {
   });
 
   return (
-    <div className="h-screen bg-blue-900">
-      <div className="flex flex-col justify-center items-center container mx-auto w-96 gap-3 h-full text-white">
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button>Change your information</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
         <form
           className="w-full flex flex-col gap-3"
           onSubmit={userFormik.handleSubmit}
         >
-          <div className="text-2xl pb-2 flex gap-2">
-            Welcome
-            <span className="">{userInfo.username}</span>
-          </div>
-
           <div className="flex flex-col w-full">
             <label htmlFor="email" className="mb-2 block text-sm font-medium" />
             <Input
@@ -179,15 +183,11 @@ export default function UserInfo({ userInfo }: { userInfo: any }) {
             Change
           </Button>
         </form>
-        <Button
-          onClick={handleLogout}
-          className="w-full"
-          variant={"destructive"}
-          value={"Logout"}
-        >
-          Logout
-        </Button>
-      </div>
-    </div>
+
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
