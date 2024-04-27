@@ -55,58 +55,51 @@ export default function Login() {
   });
 
   return (
-    <div className="h-screen grid grid-cols-3">
-      <div className="col-span-2">
-        <Image
-          src={"/back.png"}
-          alt="image"
-          width={500}
-          height={500}
-          className="w-full h-full object-cover"
-        />
-      </div>
+    <div className="h-screen flex justify-center items-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
       <form
-        className="h-full flex flex-col justify-center items-center container mx-auto gap-3 w-96 col-span-1"
+        className="w-full max-w-lg p-12 bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-600 text-white shadow-2xl rounded-xl"
         onSubmit={loginFormik.handleSubmit}
+        style={{ boxShadow: "0 15px 35px rgba(0, 0, 0, 0.25)" }}
       >
         {isRegister === "1" && (
-          <div className="absolute top-5 right-5">
-            <Alert>
-              <AiFillCheckCircle className="h-5 w-5" color="green" />
+          <div className="absolute top-3 right-3">
+            <Alert className="bg-purple-200 text-purple-800 border border-purple-300 rounded p-2">
+              <AiFillCheckCircle className="h-5 w-5" />
               <AlertTitle>Success!</AlertTitle>
               <AlertDescription>
-                Registration complete. Please Login to your account
+                Registration complete. Please login to your account.
               </AlertDescription>
             </Alert>
           </div>
         )}
-        <h1 className="font-semibold text-xl mb-5">Login</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
         <Input
           type="text"
           name="username"
           id="username"
-          placeholder="username"
+          placeholder="Username"
           value={loginFormik.values.username}
           onChange={loginFormik.handleChange}
+          className="w-full p-4 mb-4 bg-white text-gray-700 rounded"
         />
         <Input
           type="password"
           name="password"
           id="password"
-          placeholder="password"
+          placeholder="Password"
           value={loginFormik.values.password}
           onChange={loginFormik.handleChange}
+          className="w-full p-4 mb-4 bg-white text-gray-700 rounded"
         />
         <Button
-          variant={"default"}
-          className="w-full"
+          className="w-full p-4 bg-green-500 rounded hover:bg-green-600"
           type="submit"
           disabled={loginFormik.isSubmitting}
         >
           Login
         </Button>
-        <Link href={"/register"} className="w-full">
-          <Button className="w-full" variant={"outline"}>
+        <Link href="/register" className="w-full">
+          <Button className="w-full mt-4 p-4 border border-green-500 text-green-500 rounded hover:bg-green-100">
             Register
           </Button>
         </Link>
