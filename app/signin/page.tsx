@@ -105,7 +105,7 @@ export default function Login() {
         >
           Login
         </Button>
-        <Link href={"/register"} className="w-full">
+        <Link href={"/signup"} className="w-full">
           <Button className="w-full" variant={"outline"}>
             Register
           </Button>

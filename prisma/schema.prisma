@@ -18,8 +18,14 @@ model User {
   username String  @unique
   password String
   email    String  @db.LongText
+  gender   gender?
   phone    String  @db.LongText
   location String  @db.LongText
   bio      String? @db.LongText
   post     String? @db.LongText
+}
+
+enum gender {
+  MALE
+  FEMALE
 }

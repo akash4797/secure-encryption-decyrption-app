@@ -9,6 +9,13 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useToast } from "@/components/ui/use-toast";
 import Image from "next/image";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function Register() {
   const router = useRouter();
@@ -22,6 +29,7 @@ export default function Register() {
       location: "",
       password: "",
       confirmpassword: "",
+      gender: "",
     },
     validationSchema: yup.object().shape({
       username: yup.string().required("No username provided."),
@@ -49,6 +57,7 @@ export default function Register() {
             email,
             phone,
             location,
+            gender: values.gender,
           },
           {
             headers: { "Content-Type": "application/json" },
@@ -56,7 +65,7 @@ export default function Register() {
         );
 
         if (response.status === 200) {
-          router.push("/login?register=1");
+          router.push("/signin?register=1");
         } else {
           console.error("Registration failed:", response.data.message);
           toast({
@@ -143,6 +152,22 @@ export default function Register() {
             value={registerFormik.values.location}
             onChange={registerFormik.handleChange}
           />
+        </div>
+        <div className="flex flex-col w-full">
+          <span className="text-sm">
+            {registerFormik.touched.gender && registerFormik.errors.gender}
+          </span>
+          <Select
+            onValueChange={(e) => registerFormik.setFieldValue("gender", e)}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="MALE" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="MALE">Male</SelectItem>
+              <SelectItem value="FEMALE">Female</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         <div className="flex flex-col w-full">
           <span className="text-sm">

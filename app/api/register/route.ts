@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
 
   // Destructure the "username" and "password" fields from the parsed JSON
-  const { username, password, email, phone, location } = body;
+  const { username, password, email, phone, location, gender } = body;
 
   try {
     // encrypt data
@@ -50,6 +50,7 @@ export async function POST(req: NextRequest) {
         email: encryptedEmail as string,
         phone: encryptedPhone as string,
         location: encryptedLocation as string,
+        gender: gender,
       },
     });
 
