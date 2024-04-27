@@ -14,6 +14,7 @@ import * as yup from "yup";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import Image from "next/image";
 
 /*
  * The Login component is a functional component that serves as the login page
@@ -107,54 +108,65 @@ export default function Login() {
 
   // Render the login page
   return (
-    <form
-      className="h-screen flex flex-col justify-center items-center container mx-auto gap-3 w-96"
-      onSubmit={loginFormik.handleSubmit} // Handle the form submission
-    >
-      {/* Render a success message if the user has just registered */}
-      {isRegister === "1" && (
-        <div className="absolute top-5 right-5">
-          <Alert>
-            <AiFillCheckCircle className="h-5 w-5" color="green" />
-            <AlertTitle>Success!</AlertTitle>
-            <AlertDescription>
-              Registration complete. Please Login to your account
-            </AlertDescription>
-          </Alert>
-        </div>
-      )}
-      {/* Render the form */}
-      <h1 className="font-semibold text-xl mb-5">Login to the Application</h1>
-      <Input
-        type="text"
-        name="username"
-        id="username"
-        placeholder="username"
-        value={loginFormik.values.username} // Get the value of the username field
-        onChange={loginFormik.handleChange} // Handle the change of the username field
-      />
-      <Input
-        type="password"
-        name="password"
-        id="password"
-        placeholder="password"
-        value={loginFormik.values.password} // Get the value of the password field
-        onChange={loginFormik.handleChange} // Handle the change of the password field
-      />
-      <Button
-        variant={"default"}
-        className="w-full"
-        type="submit"
-        disabled={loginFormik.isSubmitting} // Disable the button while the form is submitting
+    <div className="h-screen grid grid-cols-3">
+      <div className="col-span-2">
+        <Image
+          src={"/back.png"}
+          alt="image"
+          width={500}
+          height={500}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <form
+        className="h-full flex flex-col justify-center items-center container mx-auto gap-3 w-96 col-span-1"
+        onSubmit={loginFormik.handleSubmit} // Handle the form submission
       >
-        Login
-      </Button>
-      {/* Render a link to the registration page */}
-      <Link href={"/register"} className="w-full">
-        <Button className="w-full" variant={"outline"}>
-          Register
+        {/* Render a success message if the user has just registered */}
+        {isRegister === "1" && (
+          <div className="absolute top-5 right-5">
+            <Alert>
+              <AiFillCheckCircle className="h-5 w-5" color="green" />
+              <AlertTitle>Success!</AlertTitle>
+              <AlertDescription>
+                Registration complete. Please Login to your account
+              </AlertDescription>
+            </Alert>
+          </div>
+        )}
+        {/* Render the form */}
+        <h1 className="font-semibold text-xl mb-5">Login</h1>
+        <Input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="username"
+          value={loginFormik.values.username} // Get the value of the username field
+          onChange={loginFormik.handleChange} // Handle the change of the username field
+        />
+        <Input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="password"
+          value={loginFormik.values.password} // Get the value of the password field
+          onChange={loginFormik.handleChange} // Handle the change of the password field
+        />
+        <Button
+          variant={"default"}
+          className="w-full"
+          type="submit"
+          disabled={loginFormik.isSubmitting} // Disable the button while the form is submitting
+        >
+          Login
         </Button>
-      </Link>
-    </form>
+        {/* Render a link to the registration page */}
+        <Link href={"/register"} className="w-full">
+          <Button className="w-full" variant={"outline"}>
+            Register
+          </Button>
+        </Link>
+      </form>
+    </div>
   );
 }

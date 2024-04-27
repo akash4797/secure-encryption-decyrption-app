@@ -95,80 +95,81 @@ export default function UserInfo({ userInfo }: { userInfo: any }) {
 
   // Render the form with input fields, notice, save button and logout button
   return (
-    <div className="h-screen flex flex-col justify-center items-center container mx-auto w-96 gap-3">
-      <form
-        className="w-full flex flex-col gap-3"
-        onSubmit={userFormik.handleSubmit}
-      >
-        {/* Display user's username */}
-        <div className="text-2xl border-b border-black pb-2 flex gap-2">
-          Hello
-          <span className="italic">@{userInfo.username}</span>
-        </div>
+    <div className="h-screen bg-blue-900">
+      <div className="flex flex-col justify-center items-center container mx-auto w-96 gap-3 h-full text-white">
+        <form
+          className="w-full flex flex-col gap-3"
+          onSubmit={userFormik.handleSubmit}
+        >
+          {/* Display user's username */}
+          <div className="text-2xl pb-2 flex gap-2">
+            Welcome
+            <span className="">{userInfo.username}</span>
+          </div>
 
-        {/* Display notice about data encryption */}
-        <div className="absolute top-5 right-5">
-          <Alert className="">
-            <FcDataEncryption className="h-5 w-5" />
-            <AlertTitle>Notice!</AlertTitle>
-            <AlertDescription>
-              All your details showing below are encrytped in the database.
-            </AlertDescription>
-          </Alert>
-        </div>
+          {/* Input field for email */}
+          <div className="flex flex-col w-full">
+            <label htmlFor="email" className="mb-2 block text-sm font-medium">
+              Email
+            </label>
+            <Input
+              type="text"
+              name="email"
+              id="email"
+              placeholder="Email"
+              value={userFormik.values.email}
+              onChange={userFormik.handleChange}
+              className="text-black"
+            />
+          </div>
 
-        {/* Input field for email */}
-        <div className="flex flex-col w-full">
-          <label htmlFor="email" className="mb-2 block text-sm font-medium">
-            Email
-          </label>
-          <Input
-            type="text"
-            name="email"
-            id="email"
-            placeholder="Email"
-            value={userFormik.values.email}
-            onChange={userFormik.handleChange}
-          />
-        </div>
+          {/* Input field for phone */}
+          <div className="flex flex-col w-full">
+            <label htmlFor="phone" className="mb-2 block text-sm font-medium">
+              Phone
+            </label>
+            <Input
+              type="text"
+              name="phone"
+              id="phone"
+              placeholder="Phone"
+              value={userFormik.values.phone}
+              onChange={userFormik.handleChange}
+              className="text-black"
+            />
+          </div>
 
-        {/* Input field for phone */}
-        <div className="flex flex-col w-full">
-          <label htmlFor="phone" className="mb-2 block text-sm font-medium">
-            Phone
-          </label>
-          <Input
-            type="text"
-            name="phone"
-            id="phone"
-            placeholder="Phone"
-            value={userFormik.values.phone}
-            onChange={userFormik.handleChange}
-          />
-        </div>
-
-        {/* Input field for location */}
-        <div className="flex flex-col w-full">
-          <label htmlFor="location" className="mb-2 block text-sm font-medium">
-            Location
-          </label>
-          <Input
-            type="text"
-            name="location"
-            id="location"
-            placeholder="Location"
-            value={userFormik.values.location}
-            onChange={userFormik.handleChange}
-          />
-        </div>
-        <Button type="submit" disabled={userFormik.isSubmitting}>
-          Save
+          {/* Input field for location */}
+          <div className="flex flex-col w-full">
+            <label
+              htmlFor="location"
+              className="mb-2 block text-sm font-medium"
+            >
+              Location
+            </label>
+            <Input
+              type="text"
+              name="location"
+              id="location"
+              placeholder="Location"
+              value={userFormik.values.location}
+              onChange={userFormik.handleChange}
+              className="text-black"
+            />
+          </div>
+          <Button type="submit" disabled={userFormik.isSubmitting}>
+            Save
+          </Button>
+        </form>
+        {/* Button to logout */}
+        <Button
+          onClick={handleLogout}
+          className="w-full"
+          variant={"destructive"}
+        >
+          Logout
         </Button>
-      </form>
-      {/* Button to logout */}
-      <Button onClick={handleLogout} className="w-full" variant={"destructive"}>
-        Logout
-      </Button>
+      </div>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useToast } from "@/components/ui/use-toast";
+import Image from "next/image";
 
 // This is a React functional component for the Register page.
 // It uses useFormik hook from formik library to handle form validation and submission.
@@ -96,104 +97,113 @@ export default function Register() {
   // We render the form with three input fields for username, password, and confirm password.
   // We also render a submit button and a link to the Login page.
   return (
-    <form
-      onSubmit={registerFormik.handleSubmit} // Handle form submission
-      className="h-screen flex flex-col justify-center items-center container mx-auto gap-3 w-96"
-    >
-      <h1 className="font-semibold text-xl mb-5">
-        Register to the Application
-      </h1>
-      <div className="flex flex-col w-full">
-        <span className="text-sm">
-          {registerFormik.touched.username && registerFormik.errors.username}
-        </span>
-        <Input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="Username"
-          value={registerFormik.values.username}
-          onChange={registerFormik.handleChange}
+    <div className="h-screen grid grid-cols-3">
+      <div className="col-span-2">
+        <Image
+          src="/back.png"
+          alt="Logo"
+          width={1000}
+          height={1000}
+          className="object-cover w-full h-full"
         />
       </div>
-      <div className="flex flex-col w-full">
-        <span className="text-sm">
-          {registerFormik.touched.email && registerFormik.errors.email}
-        </span>
-        <Input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Email"
-          value={registerFormik.values.email} // Set the initial value of the email field
-          onChange={registerFormik.handleChange} // Update the value of the email field when the input changes
-        />
-      </div>
-      <div className="flex flex-col w-full">
-        <span className="text-sm">
-          {registerFormik.touched.phone && registerFormik.errors.phone}
-        </span>
-        <Input
-          type="tel"
-          name="phone"
-          id="phone"
-          placeholder="Phone"
-          value={registerFormik.values.phone}
-          onChange={registerFormik.handleChange}
-        />
-      </div>
-      <div className="flex flex-col w-full">
-        <span className="text-sm">
-          {registerFormik.touched.location && registerFormik.errors.location}
-        </span>
-        <Input
-          type="text"
-          name="location"
-          id="location"
-          placeholder="Location"
-          value={registerFormik.values.location}
-          onChange={registerFormik.handleChange}
-        />
-      </div>
-      <div className="flex flex-col w-full">
-        <span className="text-sm">
-          {registerFormik.touched.password && registerFormik.errors.password}
-        </span>
-        <Input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Password"
-          value={registerFormik.values.password}
-          onChange={registerFormik.handleChange}
-        />
-      </div>
-      <div className="flex flex-col w-full">
-        <span className="text-sm">
-          {registerFormik.touched.password &&
-            registerFormik.errors.confirmpassword}
-        </span>
-        <Input
-          type="password"
-          name="confirmpassword"
-          id="confirmpassword"
-          placeholder="Confirm Password"
-          value={registerFormik.values.confirmpassword}
-          onChange={registerFormik.handleChange}
-        />
-      </div>
-      <Button
-        type={"submit"}
-        disabled={registerFormik.isSubmitting} // Disable the button while the form is submitting
-        className="w-full"
+      <form
+        onSubmit={registerFormik.handleSubmit} // Handle form submission
+        className="h-screen flex flex-col justify-center items-center container mx-auto gap-3 w-96"
       >
-        Register
-      </Button>
-      <Link href={"/login"} className="w-full">
-        <Button className="w-full" variant={"outline"}>
-          Login
+        <h1 className="font-semibold text-xl mb-5">Sign Up</h1>
+        <div className="flex flex-col w-full">
+          <span className="text-sm">
+            {registerFormik.touched.username && registerFormik.errors.username}
+          </span>
+          <Input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Username"
+            value={registerFormik.values.username}
+            onChange={registerFormik.handleChange}
+          />
+        </div>
+        <div className="flex flex-col w-full">
+          <span className="text-sm">
+            {registerFormik.touched.email && registerFormik.errors.email}
+          </span>
+          <Input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email"
+            value={registerFormik.values.email} // Set the initial value of the email field
+            onChange={registerFormik.handleChange} // Update the value of the email field when the input changes
+          />
+        </div>
+        <div className="flex flex-col w-full">
+          <span className="text-sm">
+            {registerFormik.touched.phone && registerFormik.errors.phone}
+          </span>
+          <Input
+            type="tel"
+            name="phone"
+            id="phone"
+            placeholder="Phone"
+            value={registerFormik.values.phone}
+            onChange={registerFormik.handleChange}
+          />
+        </div>
+        <div className="flex flex-col w-full">
+          <span className="text-sm">
+            {registerFormik.touched.location && registerFormik.errors.location}
+          </span>
+          <Input
+            type="text"
+            name="location"
+            id="location"
+            placeholder="Location"
+            value={registerFormik.values.location}
+            onChange={registerFormik.handleChange}
+          />
+        </div>
+        <div className="flex flex-col w-full">
+          <span className="text-sm">
+            {registerFormik.touched.password && registerFormik.errors.password}
+          </span>
+          <Input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            value={registerFormik.values.password}
+            onChange={registerFormik.handleChange}
+          />
+        </div>
+        <div className="flex flex-col w-full">
+          <span className="text-sm">
+            {registerFormik.touched.password &&
+              registerFormik.errors.confirmpassword}
+          </span>
+          <Input
+            type="password"
+            name="confirmpassword"
+            id="confirmpassword"
+            placeholder="Confirm Password"
+            value={registerFormik.values.confirmpassword}
+            onChange={registerFormik.handleChange}
+          />
+        </div>
+        <Button
+          type={"submit"}
+          disabled={registerFormik.isSubmitting} // Disable the button while the form is submitting
+          className="w-full"
+        >
+          Register
         </Button>
-      </Link>
-    </form>
+        <Link href={"/login"} className="w-full">
+          <Button className="w-full" variant={"outline"}>
+            Login
+          </Button>
+        </Link>
+      </form>
+    </div>
   );
 }
