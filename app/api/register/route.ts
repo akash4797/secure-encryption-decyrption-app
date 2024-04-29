@@ -66,5 +66,7 @@ export async function POST(req: NextRequest) {
       { message: "Error registering user" },
       { status: 500 }
     );
+  } finally {
+    db.$disconnect();
   }
 }

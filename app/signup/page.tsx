@@ -29,7 +29,7 @@ export default function Register() {
       location: "",
       password: "",
       confirmpassword: "",
-      gender: "",
+      gender: "MALE",
     },
     validationSchema: yup.object().shape({
       username: yup.string().required("No username provided."),
@@ -48,7 +48,8 @@ export default function Register() {
     }),
     onSubmit: async (values) => {
       try {
-        const { username, password, email, phone, location } = values;
+        const { username, password, email, phone, location, gender } = values;
+
         const response = await axios.post(
           "/api/register",
           {
@@ -57,7 +58,7 @@ export default function Register() {
             email,
             phone,
             location,
-            gender: values.gender,
+            gender,
           },
           {
             headers: { "Content-Type": "application/json" },
@@ -159,9 +160,10 @@ export default function Register() {
           </span>
           <Select
             onValueChange={(e) => registerFormik.setFieldValue("gender", e)}
+            value={registerFormik.values.gender}
           >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="MALE" />
+              <SelectValue placeholder="Select Gender" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="MALE">Male</SelectItem>

@@ -1,4 +1,0 @@
--- AlterTable
-ALTER TABLE `User` MODIFY `email` VARCHAR(255) NOT NULL,
-    MODIFY `location` VARCHAR(255) NOT NULL,
-    MODIFY `phone` VARCHAR(255) NOT NULL;
