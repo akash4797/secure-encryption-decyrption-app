@@ -87,7 +87,7 @@ export default function UserInfo({ userInfo }: { userInfo: any }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button>Change your information</Button>
+        <Button>Your information</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <form

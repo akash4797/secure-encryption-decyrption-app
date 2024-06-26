@@ -45,6 +45,7 @@ export default function Login() {
             variant: "destructive",
           });
       } catch (error) {
+        console.log(error);
         toast({
           title: "Error",
           description: "Something went wrong. Please try again.",
