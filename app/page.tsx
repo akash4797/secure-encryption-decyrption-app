@@ -7,9 +7,11 @@ import { headers } from "next/headers";
 const getUser = async (token: string, hostname: string) => {
   try {
     console.log("My host is:", hostname + "/api/userinfo");
-    return await axios.get(hostname + "/api/userinfo", {
+
+    const user = await fetch(hostname + "/api/userinfo", {
       headers: { Authorization: token },
     });
+    return user;
   } catch {
     return null;
   }
@@ -24,7 +26,9 @@ export default async function Home() {
   const c = cookies();
   const token = c.get("access-token")?.value;
   const userResponse = await getUser(token || "", hostname);
-  const user = userResponse?.data.user;
+  const data = await userResponse?.json();
+
+  const user = data?.user;
 
   return (
     <div className="h-screen flex flex-col justify-center items-center gap-2">
