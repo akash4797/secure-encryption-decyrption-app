@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import UserInfo from "./UserInfo";
 import Userlogout from "./Userlogout";
 
-export const getUser = async (token: string) => {
+const getUser = async (token: string) => {
   try {
     return await axios.get("http://localhost:3000/api/userinfo", {
       headers: { Authorization: token },
