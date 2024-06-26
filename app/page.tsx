@@ -28,7 +28,7 @@ export default async function Home() {
   const userResponse = await getUser(token || "", hostname);
   const data = await userResponse?.json();
 
-  const user = data?.user;
+  const user = data?.user; // Get the user data from the response
 
   return (
     <div className="h-screen flex flex-col justify-center items-center gap-2">
