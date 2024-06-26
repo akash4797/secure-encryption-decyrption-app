@@ -6,7 +6,7 @@ import { headers } from "next/headers";
 
 const getUser = async (token: string, hostname: string) => {
   try {
-    console.log("my host is:", hostname + "/api/userinfo");
+    console.log("My host is:", hostname + "/api/userinfo");
     return await axios.get(hostname + "/api/userinfo", {
       headers: { Authorization: token },
     });
